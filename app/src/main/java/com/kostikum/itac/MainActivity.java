@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements View.OnClickListener {
-    public TextView textView1;
-    public TextView textView2;
-    public Button swapButton;
+    private TextView textView1;
+    private TextView textView2;
+    private Button swapButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
