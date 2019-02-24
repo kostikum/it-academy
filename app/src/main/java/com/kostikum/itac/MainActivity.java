@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.kostikum.itac.hw1.Hw1Activity;
 import com.kostikum.itac.hw2.Hw2Activity;
+import com.kostikum.itac.hw2.LoginActivity;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -22,6 +22,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         Button hw2_button = findViewById(R.id.hw2_button);
         hw2_button.setOnClickListener(this);
+
+        Button login_activity_button = findViewById(R.id.login_activity_button);
+        login_activity_button.setOnClickListener(this);
     }
 
     @Override
@@ -33,6 +36,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.hw2_button:
                 startActivity(Hw2Activity.getIntent(this));
                 break;
+            case R.id.login_activity_button:
+                startActivity(LoginActivity.getIntent(this));
         }
 
     }

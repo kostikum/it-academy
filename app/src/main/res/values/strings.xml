@@ -5,4 +5,9 @@
     <string name="swap_button_text">Swap text views!</string>
     <string name="homework1_button_text">Homework 1</string>
     <string name="homework2_button_text">Homework 2</string>
+    <string name="login_activity_button_text">Open login page</string>
+    <string name="login_text_edit_text">Enter your login</string>
+    <string name="password_text_edit_text">Enter your password</string>
+    <string name="sign_in_button_text">Sign in</string>
+    <string name="sign_up_button_text">Sign up</string>
 </resources>
