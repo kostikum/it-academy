@@ -8,10 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="CountryFlagStyle">
-        <item name="android:layout_height">100dp</item>
-    </style>
-
     <style name="LoginActivityElementTheme">
         <item name="android:layout_margin">50dp</item>
     </style>
