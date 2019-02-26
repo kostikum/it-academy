@@ -1,57 +1,44 @@
 package com.kostikum.itac;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-public class MainActivity extends Activity implements View.OnClickListener {
-    private TextView textView1;
-    private TextView textView2;
-    private Button swapButton;
+import com.kostikum.itac.hw1.Hw1Activity;
+import com.kostikum.itac.hw2.Hw2Activity;
+import com.kostikum.itac.hw2.LoginActivity;
+
+public class MainActivity extends Activity implements View.OnClickListener{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        View.OnClickListener swapButtonClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swapTextViews();
-            }
-        };
+        Button hw1_button = findViewById(R.id.hw1_button);
+        hw1_button.setOnClickListener(this);
 
-        textView1 = findViewById(R.id.text_view_1);
-        textView1.setOnClickListener(this);
+        Button hw2_button = findViewById(R.id.hw2_button);
+        hw2_button.setOnClickListener(this);
 
-        textView2 = findViewById(R.id.text_view_2);
-        textView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swapTextViews();
-            }
-        });
-
-        swapButton = findViewById(R.id.swap_button);
-        swapButton.setOnClickListener(swapButtonClickListener);
+        Button login_activity_button = findViewById(R.id.login_activity_button);
+        login_activity_button.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        swapTextViews();
-    }
+        switch (v.getId()) {
+            case R.id.hw1_button:
+                startActivity(Hw1Activity.getIntent(this));
+                break;
+            case R.id.hw2_button:
+                startActivity(Hw2Activity.getIntent(this));
+                break;
+            case R.id.login_activity_button:
+                startActivity(LoginActivity.getIntent(this));
+        }
 
-    private void swapTextViews(){
-        CharSequence cs = textView1.getText();
-        textView1.setText(textView2.getText());
-        textView2.setText(cs);
-
-        Drawable color = textView1.getBackground();
-        textView1.setBackground(textView2.getBackground());
-        textView2.setBackground(color);
     }
 }
