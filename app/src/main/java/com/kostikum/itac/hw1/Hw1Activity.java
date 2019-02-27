@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.kostikum.itac.R;
@@ -43,8 +42,7 @@ public class Hw1Activity extends Activity implements View.OnClickListener {
             }
         });
 
-        Button swapButton = findViewById(R.id.swap_button);
-        swapButton.setOnClickListener(swapButtonClickListener);
+        findViewById(R.id.swap_button).setOnClickListener(swapButtonClickListener);
     }
 
     @Override
