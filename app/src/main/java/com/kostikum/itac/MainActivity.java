@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.kostikum.itac.hw1.Hw1Activity;
 import com.kostikum.itac.hw2.Hw2Activity;
-import com.kostikum.itac.hw2.LoginActivity;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -18,7 +17,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         findViewById(R.id.hw1_button).setOnClickListener(this);
         findViewById(R.id.hw2_button).setOnClickListener(this);
-        findViewById(R.id.login_activity_button).setOnClickListener(this);
     }
 
     @Override
@@ -29,9 +27,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.hw2_button:
                 startActivity(Hw2Activity.getIntent(this));
-                break;
-            case R.id.login_activity_button:
-                startActivity(LoginActivity.getIntent(this));
         }
 
     }

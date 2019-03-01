@@ -8,8 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="LoginActivityElementTheme">
-        <item name="android:layout_margin">50dp</item>
-    </style>
-
 </resources>
