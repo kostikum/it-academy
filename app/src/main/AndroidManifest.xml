@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kostikum.itac">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,10 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.kostikum.itac.hw1.Hw1Activity">
-        </activity>
-        <activity android:name="com.kostikum.itac.hw2.Hw2Activity">
-        </activity>
+        <activity android:name="com.kostikum.itac.hw1.Hw1Activity" />
+        <activity android:name="com.kostikum.itac.hw2.Hw2Activity" />
+        <activity android:name="com.kostikum.itac.dz3.Dz3Activity" />
         <activity android:name="com.kostikum.itac.dz3.LoginActivity" />
     </application>
 </manifest>
