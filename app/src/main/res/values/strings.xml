@@ -5,5 +5,10 @@
     <string name="swap_button_text">Swap text views!</string>
     <string name="homework1_button_text">Homework 1</string>
     <string name="homework2_button_text">Homework 2</string>
+    <string name="homework3_button_text">Homework 3</string>
+
     <string name="login_activity_button_text">Open login page</string>
+    <string name="downloaded_image_image_view_description">Image from the internet</string>
+    <string name="image_url">https://i.imgur.com/ikN0ib1.jpg</string>
+    <string name="download_image_button_text">Download image!</string>
 </resources>
