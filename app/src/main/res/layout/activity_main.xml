@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
-        android:text="@string/homework1_button_text"/>
+        android:text="@string/dz1_button_text"/>
 
     <Button
         android:id="@+id/hw2_button"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
-        android:text="@string/homework2_button_text"/>
+        android:text="@string/dz2_button_text"/>
 
     <Button
         android:id="@+id/dz3_button"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
-        android:text="@string/homework3_button_text"/>
+        android:text="@string/dz3_button_text"/>
 
     <Button
         android:id="@+id/login_activity_button"
@@ -35,6 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
-        android:text="@string/login_activity_button_text"/>
+        android:text="@string/login_dz3_activity_button_text"/>
 
 </LinearLayout>

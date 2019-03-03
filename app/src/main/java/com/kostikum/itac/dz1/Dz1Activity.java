@@ -1,4 +1,4 @@
-package com.kostikum.itac.hw1;
+package com.kostikum.itac.dz1;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,18 +11,18 @@ import android.widget.TextView;
 
 import com.kostikum.itac.R;
 
-public class Hw1Activity extends Activity implements View.OnClickListener {
+public class Dz1Activity extends Activity implements View.OnClickListener {
     private TextView textView1;
     private TextView textView2;
 
     public static Intent getIntent(Context context) {
-        return new Intent(context, Hw1Activity.class);
+        return new Intent(context, Dz1Activity.class);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hw1);
+        setContentView(R.layout.activity_dz1);
 
         View.OnClickListener swapButtonClickListener = new View.OnClickListener() {
             @Override

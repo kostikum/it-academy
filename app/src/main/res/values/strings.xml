@@ -3,11 +3,10 @@
     <string name="text_view_1_text">I am TextView 1</string>
     <string name="text_view_2_text">I am TextView 2</string>
     <string name="swap_button_text">Swap text views!</string>
-    <string name="homework1_button_text">Homework 1</string>
-    <string name="homework2_button_text">Homework 2</string>
-    <string name="homework3_button_text">Homework 3</string>
-
-    <string name="login_activity_button_text">Open login page</string>
+    <string name="dz1_button_text">Homework 1</string>
+    <string name="dz2_button_text">Homework 2</string>
+    <string name="dz3_button_text">Homework 3</string>
+    <string name="login_dz3_activity_button_text">Homework 3 — Login Page</string>
 
     <string name="login_text_edit_text">Username</string>
     <string name="password_text_edit_text">Password</string>
