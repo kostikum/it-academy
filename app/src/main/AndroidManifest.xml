@@ -22,5 +22,6 @@
         <activity android:name="com.kostikum.itac.dz2.Dz2Activity" />
         <activity android:name="com.kostikum.itac.dz3.Dz3Activity" />
         <activity android:name="com.kostikum.itac.dz3.LoginDz3Activity" />
+        <activity android:name="com.kostikum.itac.dz4.Dz4Activity" />
     </application>
 </manifest>
