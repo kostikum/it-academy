@@ -13,20 +13,46 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ClockView extends View {
+
+    Paint paint;
+
     public ClockView(Context context) {
         super(context);
+        init();
     }
 
     public ClockView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public ClockView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
     public ClockView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private void init() {
+        paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setAntiAlias(true);
+        paint.setTextSize(100);
+        paint.setTextAlign(Paint.Align.CENTER);
+
     }
 
     @Override
@@ -35,26 +61,20 @@ public class ClockView extends View {
 
         float cx = getWidth() / 2f;
         float cy = getHeight() / 2f;
-
         float radius = Math.min(cx, cy) / 1.3f;
 
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
+        //Drawing clock face
         paint.setStrokeWidth(4);
-        paint.setAntiAlias(true);
-        paint.setTextSize(100);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setElegantTextHeight(true);
         paint.setColor(Color.BLACK);
-
         canvas.drawCircle(cx, cy, radius, paint);
 
+        //Drawing clock marks
         for (int i = 0; i < 12; i++){
             canvas.drawLine(cx, cy - radius, cx, cy - radius * 0.9f, paint);
             canvas.rotate(30, cx, cy);
         }
 
-
+        //Drawing number markings
         canvas.drawText("12", cx, cy - radius * 1.15f + 35, paint);
         canvas.drawText("3", cx + radius * 1.15f, cy + 35, paint);
         canvas.drawText("6", cx, cy + radius * 1.15f + 35, paint);
@@ -62,28 +82,24 @@ public class ClockView extends View {
 
 
         Calendar calendar = Calendar.getInstance();
-
         int hours = calendar.get(Calendar.HOUR);
         int minutes = calendar.get(Calendar.MINUTE);
         int seconds = calendar.get(Calendar.SECOND);
 
-        Log.i("CLOCK", Integer.toString(hours) + "  " +
-                Integer.toString(minutes) + "  " + Integer.toString(seconds));
-
-        //Рассчитываем градус вращения для секундной стрелки и рисуем
+        //A very thin "second" or "sweep" hand
         paint.setColor(Color.RED);
         canvas.rotate(360 / 60f * seconds, cx, cy);
         canvas.drawLine(cx, cy, cx, cy - radius * 0.95f, paint);
         canvas.rotate(-360 / 60f * seconds, cx, cy);
 
-        //Рассчитываем градус вращения для минутной стрелки и рисуем
+        //A long, thinner "minute" hand;
         paint.setColor(Color.CYAN);
         paint.setStrokeWidth(6);
         canvas.rotate(360 / 60f * minutes, cx, cy);
         canvas.drawLine(cx, cy, cx, cy - radius * 0.8f, paint);
         canvas.rotate(-360 / 60f * minutes, cx, cy);
 
-        //Рассчитываем градус вращения для часовой стрелки и рисуем
+        //A short, thick "hour" hand
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(20);
         canvas.rotate(360 / 12f / 60f * (hours * 60 + minutes), cx, cy);
@@ -92,6 +108,7 @@ public class ClockView extends View {
 
         canvas.drawCircle(cx, cy, radius * 0.01f, paint);
     }
+
 }
 
 
