@@ -8,6 +8,13 @@
     <string name="homework3_button_text">Homework 3</string>
 
     <string name="login_activity_button_text">Open login page</string>
+
+    <string name="login_text_edit_text">Username</string>
+    <string name="password_text_edit_text">Password</string>
+    <string name="sign_in_button_text">LOG IN</string>
+    <string name="forgot_password_text"><u>Forgot your username/password?</u></string>
+    <string name="sign_up_button_text">CREATE ACCOUNT</string>
+  
     <string name="downloaded_image_image_view_description">Image from the internet</string>
     <string name="image_url">https://i.imgur.com/ikN0ib1.jpg</string>
     <string name="download_image_button_text">Download image!</string>

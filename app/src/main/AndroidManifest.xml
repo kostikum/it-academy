@@ -21,5 +21,6 @@
         <activity android:name="com.kostikum.itac.hw1.Hw1Activity" />
         <activity android:name="com.kostikum.itac.hw2.Hw2Activity" />
         <activity android:name="com.kostikum.itac.dz3.Dz3Activity" />
+        <activity android:name="com.kostikum.itac.dz3.LoginActivity" />
     </application>
 </manifest>
