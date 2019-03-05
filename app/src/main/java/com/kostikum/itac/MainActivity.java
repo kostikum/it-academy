@@ -9,7 +9,7 @@ import com.kostikum.itac.dz1.Dz1Activity;
 import com.kostikum.itac.dz2.Dz2Activity;
 import com.kostikum.itac.dz3.Dz3Activity;
 import com.kostikum.itac.dz3.LoginDz3Activity;
-import com.kostikum.itac.dz4.Dz4Activity;
+import com.kostikum.itac.dz4.Dz4PagerActivity;
 
 
 public class MainActivity extends Activity implements View.OnClickListener{
@@ -42,7 +42,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 startActivity(LoginDz3Activity.getIntent(this));
                 break;
             case R.id.dz4_button:
-                startActivity(Dz4Activity.getIntent(this));
+                startActivity(Dz4PagerActivity.getIntent(this));
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
         }
     }
 }

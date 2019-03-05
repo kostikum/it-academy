@@ -23,7 +23,7 @@ public class PieChartFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View v = inflater.inflate(R.layout.fragment_pie_chart, container, false);
+        final View v = inflater.inflate(R.layout.fragment_pie_chart_view, container, false);
 
         v.findViewById(R.id.pie_chart_button).setOnClickListener(new View.OnClickListener() {
             @Override

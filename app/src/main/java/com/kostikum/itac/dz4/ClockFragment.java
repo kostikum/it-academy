@@ -45,46 +45,48 @@ public class ClockFragment extends Fragment {
 
                 animOwl.getLayoutParams().width = (int) (mClockView.getRadius() / density * 2);
                 animOwl.setMinimumWidth((int) (mClockView.getRadius() / density * 2));
-                Log.i("width", "pixels " + (int) (mClockView.getRadius() * 2));
+
             }
         });
 
         ((AnimationDrawable) animOwl.getBackground()).start();
 
-        Calendar calendar = Calendar.getInstance();
-        int seconds = calendar.get(Calendar.SECOND);
-
+        int seconds = Calendar.getInstance().get(Calendar.SECOND);
         setTimer(60 - seconds);
 
         return v;
     }
 
+    private BroadcastReceiver onClockMinutesTick = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mClockView.updateClock();
+            setTimer(60);
+        }
+    };
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         IntentFilter filter = new IntentFilter(Intent.ACTION_TIME_TICK);
         getActivity().registerReceiver(onClockMinutesTick, filter);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         getActivity().unregisterReceiver(onClockMinutesTick);
     }
-
-    private BroadcastReceiver onClockMinutesTick = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            mClockView.invalidate();
-            setTimer(60);
-        }
-    };
 
     private void setTimer(int secondsLeft) {
         CountDownTimer countDownTimer = new CountDownTimer(secondsLeft * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mClockView.invalidate();
+                if (mClockView == null) {
+                    this.cancel();
+                } else {
+                    mClockView.updateSeconds(60 - ((int) (millisUntilFinished / 1000)));
+                }
             }
 
             @Override
@@ -93,5 +95,11 @@ public class ClockFragment extends Fragment {
             }
         };
         countDownTimer.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mClockView = null;
     }
 }

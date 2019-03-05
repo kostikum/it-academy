@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
-import android.util.ArrayMap;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -17,7 +16,9 @@ public class PieChartView extends View {
     float cx;
     float cy;
     float mRadius;
-    ArrayMap<Integer, Integer> mNumbersAndColors;
+
+    int[] mNumbers;
+    int[] mColors;
 
     public PieChartView(Context context) {
         super(context);
@@ -43,8 +44,8 @@ public class PieChartView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        cx = getWidth() / 2f;
-        cy = getHeight() / 2f;
+        cx = w / 2f;
+        cy = h / 2f;
         mRadius = Math.min(cx, cy) / 1.5f;
 
         mRectF = new RectF();
@@ -55,7 +56,8 @@ public class PieChartView extends View {
     }
 
     public void recutPieChart(int[] numbers) {
-        mNumbersAndColors = generateColors(numbers);
+        mNumbers = numbers;
+        mColors = generateColors(numbers);
         invalidate();
     }
 
@@ -66,26 +68,28 @@ public class PieChartView extends View {
         mPaint.setTextSize(30);
         mPaint.setTextAlign(Paint.Align.CENTER);
 
-        mNumbersAndColors = generateColors(new int[]{1,2,3,4,5,10,20,30,50,10,10,10});
+        mNumbers = new int[]{1,2,3,4,5,10,20,30,50,10,10,10};
+        mColors = generateColors(mNumbers);
+
 
     }
 
-    private ArrayMap<Integer, Integer> generateColors(int[] numbers) {
+    private int[] generateColors(int[] numbers) {
 
-        ArrayMap<Integer, Integer> numbersAndColors = new ArrayMap<>();
+        int[] colors = new int[numbers.length];
         float[] hsvColor = new float[3];
 
-        for (int num : numbers) {
+        for (int i = 0; i < numbers.length; i++) {
             //Hue - тон
             hsvColor[0] = (float) Math.random() * 360;
             //Saturation - насыщенность
             hsvColor[1] = 0.6f;
             //Luminance - яркость
             hsvColor[2] = 0.9f;
-            numbersAndColors.put(num, Color.HSVToColor(hsvColor));
+            colors[i] = Color.HSVToColor(hsvColor);
         }
 
-        return numbersAndColors;
+        return colors;
     }
 
     @Override
@@ -95,14 +99,15 @@ public class PieChartView extends View {
         int sum = 0;
         float currentAngle = 0;
 
-        for (int i = 0; i < mNumbersAndColors.size(); i++) {
-            sum = sum + mNumbersAndColors.keyAt(i);
+        for (int num : mNumbers) {
+            sum = sum + num;
         }
 
-        for (int i = 0; i < mNumbersAndColors.size(); i++) {
+        for (int i = 0; i < mNumbers.length; i++) {
 
-            float sweepAngle = ((float) mNumbersAndColors.keyAt(i)) / sum * 360;
-            mPaint.setColor(mNumbersAndColors.valueAt(i));
+
+            float sweepAngle = ((float) mNumbers[i]) / sum * 360;
+            mPaint.setColor(mColors[i]);
             canvas.drawArc(mRectF, currentAngle + 0.5f,
                     sweepAngle - 0.5f, true, mPaint);
 
@@ -126,7 +131,7 @@ public class PieChartView extends View {
                     mRadius * 0.01f, mPaint);
 
             //Цифра у метки
-            canvas.drawText(Integer.toString(i),
+            canvas.drawText(Integer.toString(mNumbers[i]),
                     cx + xDeviation / 0.72f,
                     cy + yDeviation / 0.72f, mPaint);
 

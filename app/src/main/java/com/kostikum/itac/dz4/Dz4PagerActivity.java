@@ -1,5 +1,7 @@
 package com.kostikum.itac.dz4;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,10 @@ import android.support.v4.view.ViewPager;
 import com.kostikum.itac.R;
 
 public class Dz4PagerActivity extends FragmentActivity {
+
+    public static Intent getIntent(Context context) {
+        return new Intent(context, Dz4PagerActivity.class);
+    }
 
     PieChartFragment mPieChartFragment;
     ClockFragment mClockFragment;
@@ -36,5 +42,13 @@ public class Dz4PagerActivity extends FragmentActivity {
                 return 2;
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mPieChartFragment = null;
+        mClockFragment = null;
     }
 }

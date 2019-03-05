@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.kostikum.itac.ItacApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity android:name="com.kostikum.itac.dz4.Dz4PagerActivity">
+        <activity android:name="com.kostikum.itac.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,7 +25,7 @@
         <activity android:name="com.kostikum.itac.dz2.Dz2Activity" />
         <activity android:name="com.kostikum.itac.dz3.Dz3Activity" />
         <activity android:name="com.kostikum.itac.dz3.LoginDz3Activity" />
-        <activity android:name="com.kostikum.itac.dz4.Dz4Activity" />
+        <activity android:name="com.kostikum.itac.dz4.Dz4PagerActivity" />
 
     </application>
 </manifest>

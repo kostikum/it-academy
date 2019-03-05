@@ -10,12 +10,16 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class ClockView extends View {
 
-    private Paint paint;
-    private float radius;
+    private Paint mPaint;
+    private float mRadius;
+    int mHours;
+    int mMinutes;
+    int mSeconds;
+    float cx;
+    float cy;
 
     public ClockView(Context context) {
         super(context);
@@ -41,10 +45,9 @@ public class ClockView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        float cx = w / 2f;
-        float cy = h / 2f;
-        Log.i("size", "jj" + radius);
-        radius = Math.min(cx, cy) / 1.3f;
+        cx = w / 2f;
+        cy = h / 2f;
+        mRadius = Math.min(cx, cy) / 1.3f;
     }
 
     @Override
@@ -52,76 +55,77 @@ public class ClockView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    private void init() {
-        paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setAntiAlias(true);
-        paint.setTextSize(100);
-        paint.setTextAlign(Paint.Align.CENTER);
+    public void updateClock() {
+        Calendar calendar = Calendar.getInstance();
+        mHours = calendar.get(Calendar.HOUR);
+        mMinutes = calendar.get(Calendar.MINUTE);
+        mSeconds = calendar.get(Calendar.SECOND);
 
-        float cx = getWidth() / 2f;
-        float cy = getHeight() / 2f;
-        Log.i("size", "jj" + radius);
-        radius = Math.min(cx, cy) / 1.3f;
+        invalidate();
+    }
+
+    public void updateSeconds(int seconds) {
+        mSeconds = seconds;
+
+        invalidate();
+    }
+
+    private void init() {
+        mPaint = new Paint();
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setAntiAlias(true);
+        mPaint.setTextSize(100);
+        mPaint.setTextAlign(Paint.Align.CENTER);
+
+        updateClock();
     }
 
     public float getRadius() {
-        return radius;
+        return mRadius;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float cx = getWidth() / 2f;
-        float cy = getHeight() / 2f;
-        Log.i("draw", "jj" + radius);
-        radius = Math.min(cx, cy) / 1.3f;
+        //Циферблат
+        mPaint.setStrokeWidth(4);
+        mPaint.setColor(Color.BLACK);
+        canvas.drawCircle(cx, cy, mRadius, mPaint);
 
-        //Drawing clock face
-        paint.setStrokeWidth(4);
-        paint.setColor(Color.BLACK);
-        canvas.drawCircle(cx, cy, radius, paint);
-
-        //Drawing clock marks
+        //Риски на часах
         for (int i = 0; i < 12; i++){
-            canvas.drawLine(cx, cy - radius, cx, cy - radius * 0.9f, paint);
+            canvas.drawLine(cx, cy - mRadius, cx, cy - mRadius * 0.9f, mPaint);
             canvas.rotate(30, cx, cy);
         }
 
-        //Drawing number markings
-        canvas.drawText("12", cx, cy - radius * 1.15f + 35, paint);
-        canvas.drawText("3", cx + radius * 1.15f, cy + 35, paint);
-        canvas.drawText("6", cx, cy + radius * 1.15f + 35, paint);
-        canvas.drawText("9", cx - radius * 1.15f, cy + 35, paint);
+        //Циферки на циферблате
+        canvas.drawText("12", cx, cy - mRadius * 1.15f + 35, mPaint);
+        canvas.drawText("3", cx + mRadius * 1.15f, cy + 35, mPaint);
+        canvas.drawText("6", cx, cy + mRadius * 1.15f + 35, mPaint);
+        canvas.drawText("9", cx - mRadius * 1.15f, cy + 35, mPaint);
 
+        //Часовая стрелка
+        mPaint.setColor(Color.BLACK);
+        mPaint.setStrokeWidth(20);
+        canvas.rotate(360 / 12f / 60f * (mHours * 60 + mMinutes), cx, cy);
+        canvas.drawLine(cx, cy, cx, cy - mRadius * 0.6f, mPaint);
+        canvas.rotate(-360 / 12f / 60f * (mHours * 60 + mMinutes), cx, cy);
 
-        Calendar calendar = Calendar.getInstance();
-        int hours = calendar.get(Calendar.HOUR);
-        int minutes = calendar.get(Calendar.MINUTE);
-        int seconds = calendar.get(Calendar.SECOND);
+        //Минутная стрелка
+        mPaint.setColor(Color.CYAN);
+        mPaint.setStrokeWidth(6);
+        canvas.rotate(360 / 60f * mMinutes, cx, cy);
+        canvas.drawLine(cx, cy, cx, cy - mRadius * 0.8f, mPaint);
+        canvas.rotate(-360 / 60f * mMinutes, cx, cy);
 
-        //A very thin "second" or "sweep" hand
-        paint.setColor(Color.RED);
-        canvas.rotate(360 / 60f * seconds, cx, cy);
-        canvas.drawLine(cx, cy, cx, cy - radius * 0.95f, paint);
-        canvas.rotate(-360 / 60f * seconds, cx, cy);
+        //Секундная стрелка
+        mPaint.setColor(Color.RED);
+        canvas.rotate(360 / 60f * mSeconds, cx, cy);
+        canvas.drawLine(cx, cy, cx, cy - mRadius * 0.95f, mPaint);
+        canvas.rotate(-360 / 60f * mSeconds, cx, cy);
 
-        //A long, thinner "minute" hand;
-        paint.setColor(Color.CYAN);
-        paint.setStrokeWidth(6);
-        canvas.rotate(360 / 60f * minutes, cx, cy);
-        canvas.drawLine(cx, cy, cx, cy - radius * 0.8f, paint);
-        canvas.rotate(-360 / 60f * minutes, cx, cy);
-
-        //A short, thick "hour" hand
-        paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(20);
-        canvas.rotate(360 / 12f / 60f * (hours * 60 + minutes), cx, cy);
-        canvas.drawLine(cx, cy, cx, cy - radius * 0.6f, paint);
-        canvas.rotate(-360 / 12f / 60f * (hours * 60 + minutes), cx, cy);
-
-        canvas.drawCircle(cx, cy, radius * 0.01f, paint);
+        canvas.drawCircle(cx, cy, mRadius * 0.01f, mPaint);
     }
 
 }
