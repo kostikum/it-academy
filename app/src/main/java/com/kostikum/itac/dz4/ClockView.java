@@ -14,7 +14,8 @@ import java.util.Date;
 
 public class ClockView extends View {
 
-    Paint paint;
+    private Paint paint;
+    private float radius;
 
     public ClockView(Context context) {
         super(context);
@@ -39,6 +40,11 @@ public class ClockView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+
+        float cx = w / 2f;
+        float cy = h / 2f;
+        Log.i("size", "jj" + radius);
+        radius = Math.min(cx, cy) / 1.3f;
     }
 
     @Override
@@ -53,6 +59,14 @@ public class ClockView extends View {
         paint.setTextSize(100);
         paint.setTextAlign(Paint.Align.CENTER);
 
+        float cx = getWidth() / 2f;
+        float cy = getHeight() / 2f;
+        Log.i("size", "jj" + radius);
+        radius = Math.min(cx, cy) / 1.3f;
+    }
+
+    public float getRadius() {
+        return radius;
     }
 
     @Override
@@ -61,7 +75,8 @@ public class ClockView extends View {
 
         float cx = getWidth() / 2f;
         float cy = getHeight() / 2f;
-        float radius = Math.min(cx, cy) / 1.3f;
+        Log.i("draw", "jj" + radius);
+        radius = Math.min(cx, cy) / 1.3f;
 
         //Drawing clock face
         paint.setStrokeWidth(4);

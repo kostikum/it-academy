@@ -28,7 +28,7 @@ public class Dz4Activity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dz4);
+        //setContentView(R.layout.activity_dz4);
 
         ((AnimationDrawable) findViewById(R.id.owl_anim_image_view).getBackground()).start();
 

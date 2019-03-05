@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:background="@drawable/owl_anim"
         app:layout_constraintDimensionRatio="209:312"
-        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintWidth_percent="0.3"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

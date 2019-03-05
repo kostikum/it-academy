@@ -6,19 +6,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
+import android.util.ArrayMap;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class PieChartView extends View {
 
-    Paint paint;
-    RectF rectF;
+    Paint mPaint;
+    RectF mRectF;
     float cx;
     float cy;
-    float radius;
-    int[] colors;
-    int[] numbers;
-    float[] hsv;
+    float mRadius;
+    ArrayMap<Integer, Integer> mNumbersAndColors;
 
     public PieChartView(Context context) {
         super(context);
@@ -46,25 +45,47 @@ public class PieChartView extends View {
 
         cx = getWidth() / 2f;
         cy = getHeight() / 2f;
-        radius = Math.min(cx, cy) / 1.5f;
+        mRadius = Math.min(cx, cy) / 1.5f;
 
-        rectF = new RectF();
-        rectF.bottom = cy + radius;
-        rectF.top = cy - radius;
-        rectF.left = cx - radius;
-        rectF.right = cx + radius;
+        mRectF = new RectF();
+        mRectF.bottom = cy + mRadius;
+        mRectF.top = cy - mRadius;
+        mRectF.left = cx - mRadius;
+        mRectF.right = cx + mRadius;
+    }
+
+    public void recutPieChart(int[] numbers) {
+        mNumbersAndColors = generateColors(numbers);
+        invalidate();
     }
 
     private void init() {
-        paint = new Paint();
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
-        paint.setAntiAlias(true);
-        paint.setTextSize(30);
-        paint.setTextAlign(Paint.Align.CENTER);
+        mPaint = new Paint();
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaint.setAntiAlias(true);
+        mPaint.setTextSize(30);
+        mPaint.setTextAlign(Paint.Align.CENTER);
 
-        numbers =  new int[]{100, 4, 12, 7, 12, 9, 2, 7, 8, 10, 10, 10, 10, 100,
-                100, 4, 12, 7, 12, 9, 2, 7, 8, 10, 10, 10, 10, 100,100, 4, 12, 7, 12, 9, 2, 7, 8, 10, 10, 10, 10, 100};
-        hsv = new float[3];
+        mNumbersAndColors = generateColors(new int[]{1,2,3,4,5,10,20,30,50,10,10,10});
+
+    }
+
+    private ArrayMap<Integer, Integer> generateColors(int[] numbers) {
+
+        ArrayMap<Integer, Integer> numbersAndColors = new ArrayMap<>();
+        float[] hsvColor = new float[3];
+
+        for (int num : numbers) {
+            //Hue - тон
+            hsvColor[0] = (float) Math.random() * 360;
+            //Saturation - насыщенность
+            hsvColor[1] = 0.6f;
+            //Luminance - яркость
+            hsvColor[2] = 0.9f;
+            numbersAndColors.put(num, Color.HSVToColor(hsvColor));
+        }
+
+        return numbersAndColors;
     }
 
     @Override
@@ -74,45 +95,40 @@ public class PieChartView extends View {
         int sum = 0;
         float currentAngle = 0;
 
-
-        for (int i : numbers) {
-            sum = sum + i;
+        for (int i = 0; i < mNumbersAndColors.size(); i++) {
+            sum = sum + mNumbersAndColors.keyAt(i);
         }
 
-        for (int i : numbers) {
+        for (int i = 0; i < mNumbersAndColors.size(); i++) {
 
-            float sweepAngle = ((float) i) / sum * 360;
+            float sweepAngle = ((float) mNumbersAndColors.keyAt(i)) / sum * 360;
+            mPaint.setColor(mNumbersAndColors.valueAt(i));
+            canvas.drawArc(mRectF, currentAngle + 0.5f,
+                    sweepAngle - 0.5f, true, mPaint);
 
-            //Hue
-            hsv[0] = (float) Math.random() * 360;
-            //Saturation
-            hsv[1] = 0.6f;//1.0 for brilliant, 0.0 for dull
-            //Luminance
-            hsv[2] = 1.0f; //1.0 for brighter, 0.0 for black
-
-            paint.setColor(Color.HSVToColor(hsv));
-
-            canvas.drawArc(rectF, currentAngle + 0.5f, sweepAngle - 0.5f, true, paint);
 
             float markAngle = currentAngle + sweepAngle / 2f;
+            mPaint.setStrokeWidth(5);
+            mPaint.setColor(Color.DKGRAY);
 
-            paint.setStrokeWidth(5);
-            paint.setColor(Color.DKGRAY);
+            //Подсчёт отклонений
+            float xDeviation = ((float) Math.cos(Math.toRadians(markAngle)) * mRadius);
+            float yDeviation = ((float) Math.sin(Math.toRadians(markAngle)) * mRadius);
+
+            //Метки для  кусочков
             canvas.drawLine(
-                    cx + ((float) Math.cos(Math.toRadians(markAngle)) * radius),
-                    cy + ((float) Math.sin(Math.toRadians(markAngle)) * radius),
-                    cx + ((float) Math.cos(Math.toRadians(markAngle)) * radius) / 0.8f,
-                    cy + ((float) Math.sin(Math.toRadians(markAngle)) * radius) / 0.8f,
-                    paint);
+                    cx + xDeviation, cy + yDeviation,
+                    cx + xDeviation / 0.8f,cy + yDeviation / 0.8f, mPaint);
 
-            canvas.drawCircle(cx + ((float) Math.cos(Math.toRadians(markAngle)) * radius) / 0.8f,
-                    cy + ((float) Math.sin(Math.toRadians(markAngle)) * radius) / 0.8f,
-                    radius * 0.01f, paint);
+            //Круг на конце метки
+            canvas.drawCircle(
+                    cx + xDeviation / 0.8f,cy + yDeviation / 0.8f,
+                    mRadius * 0.01f, mPaint);
 
+            //Цифра у метки
             canvas.drawText(Integer.toString(i),
-                    cx + ((float) Math.cos(Math.toRadians(markAngle)) * radius) / 0.72f,
-                    cy + ((float) Math.sin(Math.toRadians(markAngle)) * radius) / 0.72f,
-                    paint);
+                    cx + xDeviation / 0.72f,
+                    cy + yDeviation / 0.72f, mPaint);
 
             currentAngle = currentAngle + sweepAngle;
         }
