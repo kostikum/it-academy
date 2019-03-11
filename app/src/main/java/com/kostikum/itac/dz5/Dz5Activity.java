@@ -55,7 +55,6 @@ public class Dz5Activity extends Activity {
     protected void onStop() {
         super.onStop();
         unbindService(serviceConnection);
-        stopService()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mLocalWifiStateReceiver);
     }
 
