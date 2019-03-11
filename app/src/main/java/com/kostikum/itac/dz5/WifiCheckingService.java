@@ -10,32 +10,29 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
+
+import static com.kostikum.itac.dz5.Dz5Activity.EXTRA_WIFI_STATE;
 
 public class WifiCheckingService extends Service {
 
     private final IBinder mBinder = new LocalBinder();
     WifiStateBroadcastReceiver mWifiStateBroadcastReceiver;
 
+    @Nullable
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public IBinder onBind(Intent intent) {
         IntentFilter intentFilter = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
         mWifiStateBroadcastReceiver = new WifiStateBroadcastReceiver();
         registerReceiver(mWifiStateBroadcastReceiver, intentFilter);
 
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mWifiStateBroadcastReceiver);
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
         return mBinder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        unregisterReceiver(mWifiStateBroadcastReceiver);
+
+        return false;
     }
 
     public int getWifiState() {
@@ -44,7 +41,6 @@ public class WifiCheckingService extends Service {
 
         return wifiManager.getWifiState();
     }
-
 
     protected class LocalBinder extends Binder {
         WifiCheckingService getService() {
@@ -59,10 +55,8 @@ public class WifiCheckingService extends Service {
 
             Intent localBroadcastIntent = new Intent();
             localBroadcastIntent.setAction("com.kostikum.itac.broadcast.WIFI_STATE");
-            localBroadcastIntent.putExtra("WifiState", wifiState);
+            localBroadcastIntent.putExtra(EXTRA_WIFI_STATE, wifiState);
             LocalBroadcastManager.getInstance(context).sendBroadcast(localBroadcastIntent);
-
         }
     }
-
 }

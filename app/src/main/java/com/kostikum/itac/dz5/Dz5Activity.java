@@ -14,16 +14,16 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.view.View;
 import android.widget.TextView;
 
 import com.kostikum.itac.R;
 
 public class Dz5Activity extends Activity {
 
-    WifiCheckingService mService;
-    LocalWifiStateReceiver mLocalWifiStateReceiver;
-    TextView mWifiStatusTextView;
+    public static final String EXTRA_WIFI_STATE = "com.kostikum.itac.wifi_state";
+
+    private LocalWifiStateReceiver mLocalWifiStateReceiver;
+    private TextView mWifiStatusTextView;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, Dz5Activity.class);
@@ -42,11 +42,9 @@ public class Dz5Activity extends Activity {
         super.onStart();
 
         Intent intent = new Intent(this, WifiCheckingService.class);
-        startService(intent);
-        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        bindService(intent, mConn, Context.BIND_AUTO_CREATE);
 
         IntentFilter intentFilter = new IntentFilter("com.kostikum.itac.broadcast.WIFI_STATE");
-
         mLocalWifiStateReceiver = new LocalWifiStateReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(mLocalWifiStateReceiver, intentFilter);
     }
@@ -54,7 +52,7 @@ public class Dz5Activity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        unbindService(serviceConnection);
+        unbindService(mConn);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mLocalWifiStateReceiver);
     }
 
@@ -72,12 +70,11 @@ public class Dz5Activity extends Activity {
         }
     }
 
-    ServiceConnection serviceConnection = new ServiceConnection() {
+    ServiceConnection mConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             WifiCheckingService.LocalBinder binder = (WifiCheckingService.LocalBinder) service;
-            mService = binder.getService();
-            updateWifiStatusTextView(mService.getWifiState());
+            updateWifiStatusTextView(binder.getService().getWifiState());
         }
 
         @Override
@@ -89,7 +86,7 @@ public class Dz5Activity extends Activity {
     private class LocalWifiStateReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int wifiState = intent.getIntExtra("WifiState", WifiManager.WIFI_STATE_UNKNOWN);
+            int wifiState = intent.getIntExtra(EXTRA_WIFI_STATE, WifiManager.WIFI_STATE_UNKNOWN);
             updateWifiStatusTextView(wifiState);
         }
     }
