@@ -16,7 +16,7 @@ import static com.kostikum.itac.dz5.Dz5Activity.EXTRA_WIFI_STATE;
 public class WifiCheckingService extends Service {
 
     private final IBinder mBinder = new LocalBinder();
-    WifiStateBroadcastReceiver mWifiStateBroadcastReceiver;
+    private WifiStateBroadcastReceiver mWifiStateBroadcastReceiver;
 
     @Nullable
     @Override
