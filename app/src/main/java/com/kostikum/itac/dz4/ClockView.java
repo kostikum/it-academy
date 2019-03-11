@@ -15,11 +15,11 @@ public class ClockView extends View {
 
     private Paint mPaint;
     private float mRadius;
-    int mHours;
-    int mMinutes;
-    int mSeconds;
-    float cx;
-    float cy;
+    private int mHours;
+    private int mMinutes;
+    private int mSeconds;
+    private float cx;
+    private float cy;
 
     public ClockView(Context context) {
         super(context);
@@ -129,36 +129,3 @@ public class ClockView extends View {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

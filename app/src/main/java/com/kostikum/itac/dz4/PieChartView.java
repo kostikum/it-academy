@@ -11,14 +11,14 @@ import android.view.View;
 
 public class PieChartView extends View {
 
-    Paint mPaint;
-    RectF mRectF;
-    float cx;
-    float cy;
-    float mRadius;
+    private Paint mPaint;
+    private RectF mRectF;
+    private float cx;
+    private float cy;
+    private float mRadius;
 
-    int[] mNumbers;
-    int[] mColors;
+    private int[] mNumbers;
+    private int[] mColors;
 
     public PieChartView(Context context) {
         super(context);
@@ -139,26 +139,3 @@ public class PieChartView extends View {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

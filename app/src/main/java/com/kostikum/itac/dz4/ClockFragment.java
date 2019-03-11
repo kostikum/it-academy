@@ -23,7 +23,7 @@ import java.util.Calendar;
 
 public class ClockFragment extends Fragment {
 
-    ClockView mClockView;
+    private ClockView mClockView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,19 +35,8 @@ public class ClockFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_clock_view, container, false);
 
-        final ImageView animOwl = v.findViewById(R.id.owl_anim_image_view);
+        ImageView animOwl = v.findViewById(R.id.owl_anim_image_view);
         mClockView = v.findViewById(R.id.clock_view);
-        mClockView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-
-                float density = getActivity().getResources().getDisplayMetrics().density;
-
-                animOwl.getLayoutParams().width = (int) (mClockView.getRadius() / density * 2);
-                animOwl.setMinimumWidth((int) (mClockView.getRadius() / density * 2));
-
-            }
-        });
 
         ((AnimationDrawable) animOwl.getBackground()).start();
 
