@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fellow_name_textview"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/fellow_surname_textview"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:id="@+id/fellow_age_textview"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <CheckBox
+        android:id="@+id/fellow_is_degree_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="@string/is_degree_check_box_text"/>
+
+</LinearLayout>
