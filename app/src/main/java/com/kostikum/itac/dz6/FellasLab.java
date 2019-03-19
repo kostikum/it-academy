@@ -1,11 +1,18 @@
 package com.kostikum.itac.dz6;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class FellasLab {
     private static FellasLab sFellasLab;
     private List<Fellow> mFellas;
+    private OnListDownloadedListener mListener;
+
+    public void setListener(OnListDownloadedListener listener) {
+        this.mListener = listener;
+    }
 
     public static FellasLab get() {
         if (sFellasLab == null) {
@@ -25,6 +32,17 @@ public class FellasLab {
 
     public void addFellas(List<Fellow> fellasList) {
         mFellas.addAll(fellasList);
+        if (mListener != null) {
+            mListener.onDownloaded();
+        }
+    }
+
+    public void addFellow(Fellow fellow) {
+        mFellas.add(fellow);
+    }
+
+    public void deleteFellow(Fellow fellow) {
+        mFellas.remove(fellow);
     }
 
 
@@ -45,5 +63,9 @@ public class FellasLab {
             }
         }
         return null;
+    }
+
+    public interface OnListDownloadedListener {
+        void onDownloaded();
     }
 }

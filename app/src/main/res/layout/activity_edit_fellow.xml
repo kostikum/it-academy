@@ -15,17 +15,31 @@
         android:id="@+id/fellow_surname_textview"
         android:layout_width="match_parent"
         android:layout_height="60dp" />
-
-    <EditText
-        android:id="@+id/fellow_age_textview"
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:layout_height="wrap_content">
+        
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="60dp"
+            android:text="@string/fellow_age_edit_text"/>
+
+        <EditText
+            android:id="@+id/fellow_age_textview"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+        
+        
+    </LinearLayout>
+
+
 
     <CheckBox
         android:id="@+id/fellow_is_degree_checkbox"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="@string/is_degree_check_box_text"/>
+        android:text="@string/fellow_is_degree_checkbox_text"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -37,13 +51,13 @@
             android:id="@+id/save_changes_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save changes"/>
+            android:text="@string/save_changes_button"/>
 
         <Button
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete (hold for a while)"/>
+            android:text="@string/delete_changes_button"/>
 
     </LinearLayout>
 
@@ -56,13 +70,13 @@
             android:id="@+id/create_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create"/>
+            android:text="@string/create_button"/>
 
         <Button
             android:id="@+id/discard_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Discard"/>
+            android:text="@string/discard_button"/>
 
     </LinearLayout>
 

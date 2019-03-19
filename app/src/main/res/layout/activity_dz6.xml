@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="italic"
-            android:text="Filter fellas by:"/>
+            android:text="@string/filter_fellas_text_view"/>
 
         <EditText
             android:id="@+id/filter_list_edit_text"

@@ -1,6 +1,7 @@
 package com.kostikum.itac.dz6;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -14,18 +15,23 @@ import java.util.List;
 
 public class FetchFellasTask extends AsyncTask<Void,Void,List<Fellow>> {
 
+    private static final String TAG = "FetchFellasTask";
+
     @Override
     protected List<Fellow> doInBackground(Void... params) {
         try {
             return new FellasFetcher().jsonFetcher();
         } catch (IOException e) {
-            return new ArrayList<>();
+            Log.i(TAG, e.toString());
+            return null;
         }
     }
 
     @Override
     protected void onPostExecute(List<Fellow> fellas) {
-        FellasLab.get().addFellas(fellas);
+        if (fellas != null) {
+            FellasLab.get().addFellas(fellas);
+        }
     }
 
     private class FellasFetcher {

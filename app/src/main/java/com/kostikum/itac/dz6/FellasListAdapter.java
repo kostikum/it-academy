@@ -17,7 +17,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class FellasListAdapter extends RecyclerView.Adapter<FellasListViewHolder> {
+public class FellasListAdapter extends RecyclerView.Adapter<FellasListViewHolder>
+        implements FellasLab.OnListDownloadedListener{
 
     private List<Fellow> mFellas;
     private OnItemClickListener mListener;
@@ -37,27 +38,31 @@ public class FellasListAdapter extends RecyclerView.Adapter<FellasListViewHolder
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         View view = inflater.inflate(R.layout.item_fellas_list, parent, false);
-        final FellasListViewHolder holder = new FellasListViewHolder(view);
+        return new FellasListViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull final FellasListViewHolder holder, int position) {
+        holder.bindViewHolder(mFellas.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 if (mListener != null) {
-                    mListener.onClick(mFellas.get(position + 1), position);
+                    mListener.onClick(mFellas.get(position), position);
                 }
             }
         });
-        return new FellasListViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull FellasListViewHolder holder, int position) {
-        holder.bindViewHolder(mFellas.get(position));
     }
 
     @Override
     public int getItemCount() {
         return mFellas.size();
+    }
+
+    @Override
+    public void onDownloaded() {
+        notifyDataSetChanged();
     }
 
     public interface OnItemClickListener {

@@ -2,28 +2,47 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="100dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/fellow_name_textview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/fellow_surname_textview"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        <TextView
+            android:id="@+id/fellow_name_textview"
+            android:theme="@style/FellowItemTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/fellow_age_textview"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        <TextView
+            android:id="@+id/fellow_surname_textview"
+            android:theme="@style/FellowItemTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
-    <CheckBox
-        android:id="@+id/fellow_is_degree_checkbox"
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="@string/is_degree_check_box_text"/>
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/fellow_age_textview"
+            android:theme="@style/FellowItemTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/fellow_is_degree_textview"
+            android:theme="@style/FellowItemTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </LinearLayout>
