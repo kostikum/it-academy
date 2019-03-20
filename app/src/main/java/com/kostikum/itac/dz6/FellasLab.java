@@ -1,9 +1,8 @@
 package com.kostikum.itac.dz6;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class FellasLab {
     private static FellasLab sFellasLab;
@@ -56,14 +55,16 @@ public class FellasLab {
         return filteredFellas;
     }
 
-    public Fellow getFellow(int id) {
+    public Fellow getFellow(UUID uuid) {
         for (Fellow fellow : mFellas) {
-            if (fellow.getId() == id) {
+            if (fellow.getUuid().equals(uuid)) {
                 return fellow;
             }
         }
         return null;
     }
+
+
 
     public interface OnListDownloadedListener {
         void onDownloaded();

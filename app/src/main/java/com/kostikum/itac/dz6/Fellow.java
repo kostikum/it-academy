@@ -2,7 +2,11 @@ package com.kostikum.itac.dz6;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.UUID;
+
 public class Fellow {
+
+    private UUID mUuid;
 
     @SerializedName("id")
     private Integer mId;
@@ -15,12 +19,16 @@ public class Fellow {
     @SerializedName("isDegree")
     private Boolean isDegree;
 
-    public int getId() {
-        return mId;
+    public Fellow() {
+        this.mUuid = UUID.randomUUID();
     }
 
-    public void setId(Integer id) {
-        mId = id;
+    public UUID getUuid() {
+        return mUuid;
+    }
+
+    public int getId() {
+        return mId;
     }
 
     public String getName() {

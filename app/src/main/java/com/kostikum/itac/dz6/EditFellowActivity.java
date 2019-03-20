@@ -15,6 +15,7 @@ import com.kostikum.itac.R;
 
 import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 
 public class EditFellowActivity extends Activity {
 
@@ -30,7 +31,7 @@ public class EditFellowActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_fellow);
 
-        int id = getIntent().getIntExtra("EXTRA_FELLOW_ID", 0);
+        UUID uuid = Dz6Activity.fellowIdFromIntent(getIntent());
 
         final EditText fellowNameEditText = findViewById(R.id.fellow_name_textview);
         final EditText fellowSurnameEditText = findViewById(R.id.fellow_surname_textview);
@@ -42,8 +43,8 @@ public class EditFellowActivity extends Activity {
         Button createButton = findViewById(R.id.create_button);
         Button discardButton = findViewById(R.id.discard_button);
 
-        if (id != -1) {
-            mFellow = FellasLab.get().getFellow(id);
+        mFellow = FellasLab.get().getFellow(uuid);
+        if (mFellow != null) {
             fellowNameEditText.setText(mFellow.getName());
             fellowSurnameEditText.setText(mFellow.getSurname());
             fellowAgeEditText.setText(String.format(Locale.ENGLISH, "%d", mFellow.getAge()));
@@ -62,9 +63,7 @@ public class EditFellowActivity extends Activity {
                     mFellow.setName(fellowNameEditText.getText().toString());
                     mFellow.setSurname(fellowSurnameEditText.getText().toString());
                     mFellow.setDegree(fellowIsDegreeCheckbox.isChecked());
-                    Random rand = new Random();
-                    int n = rand.nextInt(999999);
-                    mFellow.setId(n);
+                    setModificationResult(true);
                     finish();
 
                 }
@@ -97,9 +96,6 @@ public class EditFellowActivity extends Activity {
                     fellow.setName(fellowNameEditText.getText().toString());
                     fellow.setSurname(fellowSurnameEditText.getText().toString());
                     fellow.setDegree(fellowIsDegreeCheckbox.isChecked());
-                    Random rand = new Random();
-                    int n = rand.nextInt(999999);
-                    fellow.setId(n);
                     FellasLab.get().addFellow(fellow);
                     setModificationResult(true);
                     finish();

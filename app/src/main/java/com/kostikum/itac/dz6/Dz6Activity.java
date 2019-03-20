@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DividerItemDecoration;
@@ -16,24 +12,27 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.kostikum.itac.R;
 
+import java.util.UUID;
+
 public class Dz6Activity extends Activity {
+
+    public static final String EXTRA_FELLOW_ID = "com.kostikum.itac.dz6.fellow_id";
+    private static final int REQUEST_CODE_MODIFICATION = 0;
+    private FellasListAdapter adapter;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, Dz6Activity.class);
     }
 
-    private static final String EXTRA_FELLOW_ID = "com.kostikum.itac.dz6.fellow_id";
-    private static final int REQUEST_CODE_MODIFICATION = 0;
-    FellasListAdapter adapter;
+    public static UUID fellowIdFromIntent(Intent result) {
+        return (UUID) result.getSerializableExtra(EXTRA_FELLOW_ID);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class Dz6Activity extends Activity {
         final RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
         adapter = new FellasListAdapter();
-
 
         filterEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -60,7 +58,7 @@ public class Dz6Activity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                adapter.setList(FellasLab.get().getFilteredFellas(s.toString()));
+                adapter.setListWithFilter(s.toString());
             }
         });
 
@@ -68,7 +66,7 @@ public class Dz6Activity extends Activity {
             @Override
             public void onClick(Fellow item, int position) {
                 Intent intent = new Intent(Dz6Activity.this, EditFellowActivity.class);
-                intent.putExtra(EXTRA_FELLOW_ID, item.getId());
+                intent.putExtra(EXTRA_FELLOW_ID, item.getUuid());
                 startActivityForResult(intent, REQUEST_CODE_MODIFICATION);
             }
         });
@@ -80,7 +78,7 @@ public class Dz6Activity extends Activity {
             }
         });
 
-        adapter.setList(FellasLab.get().getFellas());
+        adapter.setListWithFilter(null);
 
         recyclerView.setHasFixedSize(true);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -94,7 +92,6 @@ public class Dz6Activity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Dz6Activity.this, EditFellowActivity.class);
-                intent.putExtra("EXTRA_FELLOW_ID", -1);
                 startActivityForResult(intent, REQUEST_CODE_MODIFICATION);
             }
         });

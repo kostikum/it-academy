@@ -24,7 +24,7 @@
     <string name="fellow_is_degree_checkbox_text">Degree</string>
     <string name="fellow_age_edit_text">Age: </string>
     <string name="save_changes_button">Save changes</string>
-    <string name="delete_changes_button">Delete (hold for a while)</string>
+    <string name="delete_changes_button">Delete</string>
     <string name="create_button">Create</string>
     <string name="discard_button">Discard</string>
     <string name="filter_fellas_text_view">Filter fellas by: </string>

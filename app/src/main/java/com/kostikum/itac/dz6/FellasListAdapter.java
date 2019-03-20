@@ -1,20 +1,13 @@
 package com.kostikum.itac.dz6;
 
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kostikum.itac.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 public class FellasListAdapter extends RecyclerView.Adapter<FellasListViewHolder>
@@ -23,13 +16,17 @@ public class FellasListAdapter extends RecyclerView.Adapter<FellasListViewHolder
     private List<Fellow> mFellas;
     private OnItemClickListener mListener;
 
-    public void setListener(OnItemClickListener listener) {
-        this.mListener = listener;
+    public void setListWithFilter(String keyWord) {
+        if (keyWord == null || keyWord.isEmpty()) {
+            mFellas = FellasLab.get().getFellas();
+        } else {
+            mFellas = FellasLab.get().getFilteredFellas(keyWord);
+        }
+        notifyDataSetChanged();
     }
 
-    public void setList(List<Fellow> fellas) {
-        mFellas = fellas;
-        notifyDataSetChanged();
+    public void setListener(OnItemClickListener listener) {
+        this.mListener = listener;
     }
 
     @NonNull
