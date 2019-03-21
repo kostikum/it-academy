@@ -4,16 +4,21 @@
     package="com.kostikum.itac">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:name="com.kostikum.itac.ItacApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+      
+        <service
+            android:name="com.kostikum.itac.dz5.WifiCheckingService"
+            android:enabled="true">
+        </service>
 
         <activity android:name="com.kostikum.itac.MainActivity">
             <intent-filter>
@@ -26,6 +31,8 @@
         <activity android:name="com.kostikum.itac.dz3.Dz3Activity" />
         <activity android:name="com.kostikum.itac.dz3.LoginDz3Activity" />
         <activity android:name="com.kostikum.itac.dz4.Dz4PagerActivity" />
+        <activity android:name="com.kostikum.itac.dz4.Dz4PagerActivity" />
+        <activity android:name="com.kostikum.itac.dz5.Dz5Activity" />
 
     </application>
 </manifest>

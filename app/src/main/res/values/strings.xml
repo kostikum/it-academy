@@ -8,6 +8,7 @@
     <string name="dz3_button_text">Homework 3</string>
     <string name="login_dz3_activity_button_text">Homework 3 — Login Page</string>
     <string name="dz4_button_text">Homework 4</string>
+    <string name="dz5_button_text">Homework 5</string>
 
     <string name="login_text_edit_text">Username</string>
     <string name="password_text_edit_text">Password</string>
@@ -19,6 +20,10 @@
     <string name="image_url">https://i.imgur.com/ikN0ib1.jpg</string>
     <string name="download_image_button_text">Download image!</string>
 
+    <string name="wifi_on_text_view_text">ON</string>
+    <string name="wifi_off_text_view_text">OFF</string>
+
     <string name="pie_chart_edit_text_preset">1,2,3,4,5,10,20,30,50,10,10,10</string>
     <string name="pie_chart_cut_button_text">Cut the Pie!</string>
+
 </resources>
