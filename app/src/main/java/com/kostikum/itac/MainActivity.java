@@ -11,6 +11,7 @@ import com.kostikum.itac.dz3.Dz3Activity;
 import com.kostikum.itac.dz3.LoginDz3Activity;
 import com.kostikum.itac.dz4.Dz4PagerActivity;
 import com.kostikum.itac.dz5.Dz5Activity;
+import com.kostikum.itac.dz6.Dz6Activity;
 
 
 public class MainActivity extends Activity implements View.OnClickListener{
@@ -26,6 +27,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         findViewById(R.id.login_activity_button).setOnClickListener(this);
         findViewById(R.id.dz4_button).setOnClickListener(this);
         findViewById(R.id.dz5_button).setOnClickListener(this);
+        findViewById(R.id.dz6_button).setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +51,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.dz5_button:
                 startActivity(Dz5Activity.getIntent(this));
+                break;
+            case R.id.dz6_button:
+                startActivity(Dz6Activity.getIntent(this));
                 break;
         }
     }

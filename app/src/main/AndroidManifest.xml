@@ -33,6 +33,8 @@
         <activity android:name="com.kostikum.itac.dz4.Dz4PagerActivity" />
         <activity android:name="com.kostikum.itac.dz4.Dz4PagerActivity" />
         <activity android:name="com.kostikum.itac.dz5.Dz5Activity" />
+        <activity android:name="com.kostikum.itac.dz6.Dz6Activity" />
+        <activity android:name="com.kostikum.itac.dz6.EditFellowActivity" />
 
     </application>
 </manifest>
