@@ -1,58 +1,51 @@
 package com.kostikum.itac.dz6;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.UUID;
 
 public class Fellow {
 
-    private UUID mUuid;
+    private UUID uuid;
 
-    @SerializedName("id")
-    private Integer mId;
-    @SerializedName("name")
-    private String mName;
-    @SerializedName("surname")
-    private String mSurname;
-    @SerializedName("age")
-    private Integer mAge;
-    @SerializedName("isDegree")
+    private Integer id;
+    private String name;
+    private String surname;
+    private Integer age;
     private Boolean isDegree;
 
     public Fellow() {
-        this.mUuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID();
     }
 
     public UUID getUuid() {
-        return mUuid;
+        return uuid;
     }
 
     public int getId() {
-        return mId;
+        return id;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        mName = name;
+        this.name = name;
     }
 
     public String getSurname() {
-        return mSurname;
+        return surname;
     }
 
     public void setSurname(String surname) {
-        mSurname = surname;
+        this.surname = surname;
     }
 
     public void setAge(int age) {
-        mAge = age;
+        this.age = age;
     }
 
     public int getAge() {
-        return mAge;
+        return age;
     }
 
     public boolean isDegree() {

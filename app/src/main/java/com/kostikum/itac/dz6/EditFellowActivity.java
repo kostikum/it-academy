@@ -1,6 +1,7 @@
 package com.kostikum.itac.dz6;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,10 +21,17 @@ import java.util.UUID;
 public class EditFellowActivity extends Activity {
 
     private static final String EXTRA_ANSWER_MODIFIED = "com.kostikum.itac.dz6.modified";
+    public static final String EXTRA_FELLOW_ID = "com.kostikum.itac.dz6.fellow_id";
     private Fellow mFellow;
 
     public static boolean wasModified(Intent result) {
         return result.getBooleanExtra(EXTRA_ANSWER_MODIFIED, false);
+    }
+    
+    public static Intent getIntent(Context context, UUID itemUuid) {
+        Intent intent = new Intent(context, EditFellowActivity.class);
+        intent.putExtra(EXTRA_FELLOW_ID, itemUuid);
+        return new Intent(context, EditFellowActivity.class);
     }
 
     @Override
@@ -31,7 +39,7 @@ public class EditFellowActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_fellow);
 
-        UUID uuid = Dz6Activity.fellowIdFromIntent(getIntent());
+        UUID uuid = (UUID) getIntent().getSerializableExtra(EXTRA_FELLOW_ID);
 
         final EditText fellowNameEditText = findViewById(R.id.fellow_name_textview);
         final EditText fellowSurnameEditText = findViewById(R.id.fellow_surname_textview);

@@ -21,17 +21,12 @@ import com.kostikum.itac.R;
 import java.util.UUID;
 
 public class Dz6Activity extends Activity {
-
-    public static final String EXTRA_FELLOW_ID = "com.kostikum.itac.dz6.fellow_id";
+    
     private static final int REQUEST_CODE_MODIFICATION = 0;
     private FellasListAdapter adapter;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, Dz6Activity.class);
-    }
-
-    public static UUID fellowIdFromIntent(Intent result) {
-        return (UUID) result.getSerializableExtra(EXTRA_FELLOW_ID);
     }
 
     @Override
@@ -53,7 +48,6 @@ public class Dz6Activity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
@@ -65,8 +59,7 @@ public class Dz6Activity extends Activity {
         adapter.setListener(new FellasListAdapter.OnItemClickListener() {
             @Override
             public void onClick(Fellow item, int position) {
-                Intent intent = new Intent(Dz6Activity.this, EditFellowActivity.class);
-                intent.putExtra(EXTRA_FELLOW_ID, item.getUuid());
+                Intent intent = EditFellowActivity.getIntent(Dz6Activity.this, item.getUuid());
                 startActivityForResult(intent, REQUEST_CODE_MODIFICATION);
             }
         });
