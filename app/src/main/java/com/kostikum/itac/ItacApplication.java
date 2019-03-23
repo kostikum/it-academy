@@ -17,6 +17,5 @@ public class ItacApplication extends Application {
             return;
         }
         LeakCanary.install(this);
-        // Normal app init code...
     }
 }

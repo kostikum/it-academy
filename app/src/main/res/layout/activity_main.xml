@@ -6,42 +6,42 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/hw1_button"
+        android:id="@+id/dz1_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:text="@string/dz1_button_text"/>
 
     <Button
-        android:id="@+id/hw2_button"
+        android:id="@+id/dz2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:text="@string/dz2_button_text"/>
 
     <Button
-        android:id="@+id/dz3_button"
+        android:id="@+id/dz3_1_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:text="@string/dz3_button_text"/>
+        android:text="@string/dz3_1_button_text"/>
 
     <Button
-        android:id="@+id/login_activity_button"
+        android:id="@+id/dz3_2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:text="@string/login_dz3_activity_button_text"/>
+        android:text="@string/dz3_2_activity_button_text"/>
 
     <Button
         android:id="@+id/dz4_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:text="@string/dz4_button_text"/>
 
@@ -49,7 +49,7 @@
         android:id="@+id/dz5_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:text="@string/dz5_button_text"/>
 
@@ -57,7 +57,7 @@
         android:id="@+id/dz6_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:text="@string/dz6_button_text"/>
   

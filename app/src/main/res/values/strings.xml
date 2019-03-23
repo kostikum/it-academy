@@ -5,8 +5,8 @@
     <string name="swap_button_text">Swap text views!</string>
     <string name="dz1_button_text">Homework 1</string>
     <string name="dz2_button_text">Homework 2</string>
-    <string name="dz3_button_text">Homework 3</string>
-    <string name="login_dz3_activity_button_text">Homework 3 — Login Page</string>
+    <string name="dz3_1_button_text">Homework 3.1</string>
+    <string name="dz3_2_activity_button_text">Homework 3.2</string>
     <string name="dz4_button_text">Homework 4</string>
     <string name="dz5_button_text">Homework 5</string>
     <string name="dz6_button_text">Homework 6</string>

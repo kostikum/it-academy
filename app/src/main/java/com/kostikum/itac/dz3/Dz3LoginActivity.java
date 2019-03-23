@@ -8,10 +8,10 @@ import android.support.annotation.Nullable;
 
 import com.kostikum.itac.R;
 
-public class LoginDz3Activity extends Activity {
+public class Dz3LoginActivity extends Activity {
 
     public static Intent getIntent(Context context) {
-        return new Intent(context, LoginDz3Activity.class);
+        return new Intent(context, Dz3LoginActivity.class);
     }
 
     @Override
