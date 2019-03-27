@@ -43,7 +43,6 @@ public class Dz6Activity extends Activity {
         filterEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -52,7 +51,7 @@ public class Dz6Activity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                adapter.setListWithFilter(s.toString());
+                adapter.setListWithFilter(s.toString().toLowerCase());
             }
         });
 

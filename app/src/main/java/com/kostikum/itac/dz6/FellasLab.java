@@ -48,7 +48,8 @@ public class FellasLab {
     public List<Fellow> getFilteredFellas(String keyWord) {
         List<Fellow> filteredFellas = new ArrayList<>();
         for (Fellow fellow : mFellas) {
-            if (fellow.getName().contains(keyWord) || fellow.getSurname().contains(keyWord)) {
+            if (fellow.getName().toLowerCase().contains(keyWord) ||
+                    fellow.getSurname().toLowerCase().contains(keyWord)) {
                 filteredFellas.add(fellow);
             }
         }
