@@ -33,6 +33,7 @@
         <activity android:name="com.kostikum.itac.dz5.Dz5Activity" />
         <activity android:name="com.kostikum.itac.dz6.Dz6Activity" />
         <activity android:name="com.kostikum.itac.dz6.EditFellowActivity" />
+        <activity android:name="com.kostikum.itac.dz9.Dz9Activity" />
 
     </application>
 </manifest>

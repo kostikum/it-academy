@@ -10,6 +10,7 @@
     <string name="dz4_button_text">Homework 4</string>
     <string name="dz5_button_text">Homework 5</string>
     <string name="dz6_button_text">Homework 6</string>
+    <string name="dz9_button_text">Homework 9</string>
 
     <string name="login_text_edit_text">Username</string>
     <string name="password_text_edit_text">Password</string>

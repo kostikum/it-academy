@@ -1,12 +1,13 @@
-package com.kostikum.itac.dz6;
+package com.kostikum.itac.dz9;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -17,48 +18,57 @@ import com.kostikum.itac.R;
 import java.util.Locale;
 import java.util.UUID;
 
-public class EditFellowActivity extends Activity {
-
-    private static final String EXTRA_ANSWER_MODIFIED = "com.kostikum.itac.dz6.modified";
-    public static final String EXTRA_FELLOW_ID = "com.kostikum.itac.dz6.fellow_id";
+public class EditFellowFragment extends Fragment {
+    
     private Fellow mFellow;
-
-    public static boolean wasModified(Intent result) {
-        return result.getBooleanExtra(EXTRA_ANSWER_MODIFIED, false);
+    private Callbacks mCallbacks;
+    
+    public interface Callbacks{
+        void onFellowChanged();
     }
     
-    public static Intent getIntent(Context context, UUID itemUuid) {
-        Intent intent = new Intent(context, EditFellowActivity.class);
-        intent.putExtra(EXTRA_FELLOW_ID, itemUuid);
-        Log.i("FF", "onCreate: " + itemUuid.toString());
-    
-        return new Intent(context, EditFellowActivity.class);
+    public static EditFellowFragment newInstance(UUID uuid) {
+        EditFellowFragment editFellowFragment = new EditFellowFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("uuid", uuid);
+        editFellowFragment.setArguments(args);
+        return editFellowFragment;
     }
-
+    
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_fellow);
-
-        UUID uuid = (UUID) getIntent().getSerializableExtra(EXTRA_FELLOW_ID);
-
-        final EditText fellowNameEditText = findViewById(R.id.fellow_name_textview);
-        final EditText fellowSurnameEditText = findViewById(R.id.fellow_surname_textview);
-        final EditText fellowAgeEditText = findViewById(R.id.fellow_age_textview);
-        final CheckBox fellowIsDegreeCheckbox = findViewById(R.id.fellow_is_degree_checkbox);
-
-        Button saveChangesButton = findViewById(R.id.save_changes_button);
-        Button deleteButton = findViewById(R.id.delete_button);
-        Button createButton = findViewById(R.id.create_button);
-        Button discardButton = findViewById(R.id.discard_button);
-
-        mFellow = FellasLab.get().getFellow(uuid);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Callbacks) {
+            mCallbacks = (Callbacks) context;
+        }
+    }
+    
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_edit_fellow, container, false);
+    }
+    
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        final EditText fellowNameEditText = view.findViewById(R.id.fellow_name_textview);
+        final EditText fellowSurnameEditText = view.findViewById(R.id.fellow_surname_textview);
+        final EditText fellowAgeEditText = view.findViewById(R.id.fellow_age_textview);
+        final CheckBox fellowIsDegreeCheckbox = view.findViewById(R.id.fellow_is_degree_checkbox);
+    
+        Button saveChangesButton = view.findViewById(R.id.save_changes_button);
+        Button deleteButton = view.findViewById(R.id.delete_button);
+        Button createButton = view.findViewById(R.id.create_button);
+        Button discardButton = view.findViewById(R.id.discard_button);
+    
+        UUID fellowUUID = (UUID) getArguments().getSerializable("uuid");
+        mFellow = FellasLab2.get().getFellow(fellowUUID);
         if (mFellow != null) {
             fellowNameEditText.setText(mFellow.getName());
             fellowSurnameEditText.setText(mFellow.getSurname());
             fellowAgeEditText.setText(String.format(Locale.ENGLISH, "%d", mFellow.getAge()));
             fellowIsDegreeCheckbox.setChecked(mFellow.isDegree());
-
+        
             saveChangesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,22 +82,19 @@ public class EditFellowActivity extends Activity {
                     mFellow.setName(fellowNameEditText.getText().toString());
                     mFellow.setSurname(fellowSurnameEditText.getText().toString());
                     mFellow.setDegree(fellowIsDegreeCheckbox.isChecked());
-                    setModificationResult(true);
-                    finish();
-
+                    mCallbacks.onFellowChanged();
                 }
             });
-
+        
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FellasLab.get().deleteFellow(mFellow);
-                    setModificationResult(true);
-                    finish();
+                    FellasLab2.get().deleteFellow(mFellow);
+                    mCallbacks.onFellowChanged();
                 }
             });
-
-
+        
+        
             createButton.setEnabled(false);
             discardButton.setEnabled(false);
         } else {
@@ -105,30 +112,27 @@ public class EditFellowActivity extends Activity {
                     fellow.setName(fellowNameEditText.getText().toString());
                     fellow.setSurname(fellowSurnameEditText.getText().toString());
                     fellow.setDegree(fellowIsDegreeCheckbox.isChecked());
-                    FellasLab.get().addFellow(fellow);
-                    setModificationResult(true);
-                    finish();
-
+                    FellasLab2.get().addFellow(fellow);
+                    mCallbacks.onFellowChanged();
                 }
             });
-
+        
             discardButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setModificationResult(false);
-                    finish();
+                    mCallbacks.onFellowChanged();
                 }
             });
-
-
+        
+        
             saveChangesButton.setEnabled(false);
             deleteButton.setEnabled(false);
         }
     }
-
-    private void setModificationResult(boolean isModified) {
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_ANSWER_MODIFIED, isModified);
-        setResult(RESULT_OK, intent);
+    
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
     }
 }
