@@ -24,7 +24,6 @@ import java.util.UUID;
 
 public class FellasListFragment extends Fragment {
     
-    private static final int REQUEST_CODE_MODIFICATION = 0;
     private FellasListAdapter adapter;
     private Callbacks mCallbacks;
     

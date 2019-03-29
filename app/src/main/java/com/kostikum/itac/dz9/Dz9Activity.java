@@ -42,29 +42,30 @@ public class Dz9Activity extends AppCompatActivity implements FellasListFragment
     }
     
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FellasLab2.get().setListener(null);
+    }
+    
+    @Override
     public void onFellowSelected(UUID uuid) {
         EditFellowFragment fragment = EditFellowFragment.newInstance(uuid);
     
-        if (findViewById(R.id.detailed_fragment_container) == null) {
+        if (findViewById(R.id.detailed_fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_fragment_container, fragment)
+                    .replace(R.id.detailed_fragment_container, fragment)
                     .commit();
         } else {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.detailed_fragment_container, fragment)
+                    .replace(R.id.main_fragment_container, fragment)
+                    .addToBackStack(null)
                     .commit();
         }
     }
     
     @Override
     public void onFellowChanged() {
-        if (findViewById(R.id.detailed_fragment_container) == null) {
-            FellasListFragment fragment = new FellasListFragment();
-        
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_fragment_container, fragment)
-                    .commit();
-        } else {
+        if (findViewById(R.id.detailed_fragment_container) != null) {
             updateMainFragment();
     
             FragmentManager fm = getSupportFragmentManager();
@@ -72,6 +73,12 @@ public class Dz9Activity extends AppCompatActivity implements FellasListFragment
     
             getSupportFragmentManager().beginTransaction()
                     .remove(fragment)
+                    .commit();
+        } else {
+            FellasListFragment fragment = new FellasListFragment();
+    
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_fragment_container, fragment)
                     .commit();
         }
     }

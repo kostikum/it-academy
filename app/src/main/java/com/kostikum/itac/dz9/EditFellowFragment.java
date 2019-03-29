@@ -20,6 +20,7 @@ import java.util.UUID;
 
 public class EditFellowFragment extends Fragment {
     
+    private static final String EXTRA_UUID = "com.kostikum.itac.dz9.fellow_uuid";
     private Fellow mFellow;
     private Callbacks mCallbacks;
     
@@ -30,7 +31,7 @@ public class EditFellowFragment extends Fragment {
     public static EditFellowFragment newInstance(UUID uuid) {
         EditFellowFragment editFellowFragment = new EditFellowFragment();
         Bundle args = new Bundle();
-        args.putSerializable("uuid", uuid);
+        args.putSerializable(EXTRA_UUID, uuid);
         editFellowFragment.setArguments(args);
         return editFellowFragment;
     }
@@ -61,7 +62,7 @@ public class EditFellowFragment extends Fragment {
         Button createButton = view.findViewById(R.id.create_button);
         Button discardButton = view.findViewById(R.id.discard_button);
     
-        UUID fellowUUID = (UUID) getArguments().getSerializable("uuid");
+        UUID fellowUUID = (UUID) getArguments().getSerializable(EXTRA_UUID);
         mFellow = FellasLab2.get().getFellow(fellowUUID);
         if (mFellow != null) {
             fellowNameEditText.setText(mFellow.getName());

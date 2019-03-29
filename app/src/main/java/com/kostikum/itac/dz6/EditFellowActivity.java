@@ -30,8 +30,6 @@ public class EditFellowActivity extends Activity {
     public static Intent getIntent(Context context, UUID itemUuid) {
         Intent intent = new Intent(context, EditFellowActivity.class);
         intent.putExtra(EXTRA_FELLOW_ID, itemUuid);
-        Log.i("FF", "onCreate: " + itemUuid.toString());
-    
         return new Intent(context, EditFellowActivity.class);
     }
 
