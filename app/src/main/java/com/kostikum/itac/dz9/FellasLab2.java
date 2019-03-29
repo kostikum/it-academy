@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class FellasLab2 {
     private static FellasLab2 sFellasLab;
-    private List<Fellow> mFellas;
+    private List<Fellow> mFellas = new ArrayList<>();
     private OnListDownloadedListener mListener;
 
     public void setListener(OnListDownloadedListener listener) {
@@ -16,13 +16,9 @@ public class FellasLab2 {
     public static FellasLab2 get() {
         if (sFellasLab == null) {
             sFellasLab = new FellasLab2();
+            new FetchFellasTask().execute();
         }
         return sFellasLab;
-    }
-
-    private FellasLab2() {
-        new FetchFellasTask().execute();
-        mFellas = new ArrayList<>();
     }
 
     public List<Fellow> getFellas() {
@@ -64,8 +60,7 @@ public class FellasLab2 {
         }
         return null;
     }
-
-
+    
 
     public interface OnListDownloadedListener {
         void onDownloaded();

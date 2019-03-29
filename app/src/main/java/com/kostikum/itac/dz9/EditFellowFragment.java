@@ -51,7 +51,7 @@ public class EditFellowFragment extends Fragment {
     }
     
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         final EditText fellowNameEditText = view.findViewById(R.id.fellow_name_textview);
         final EditText fellowSurnameEditText = view.findViewById(R.id.fellow_surname_textview);
         final EditText fellowAgeEditText = view.findViewById(R.id.fellow_age_textview);
@@ -73,16 +73,13 @@ public class EditFellowFragment extends Fragment {
             saveChangesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        String ageString = fellowAgeEditText.getText().toString();
-                        mFellow.setAge(Integer.parseInt(ageString));
-                    } catch (NumberFormatException nfe) {
-                        Toast.makeText(v.getContext(), "Incorrect age format", Toast.LENGTH_LONG).show();
+                    if (!modifyFellow(mFellow, view.getContext(),
+                            fellowAgeEditText.getText().toString(),
+                            fellowNameEditText.getText().toString(),
+                            fellowSurnameEditText.getText().toString(),
+                            fellowIsDegreeCheckbox.isChecked())) {
                         return;
                     }
-                    mFellow.setName(fellowNameEditText.getText().toString());
-                    mFellow.setSurname(fellowSurnameEditText.getText().toString());
-                    mFellow.setDegree(fellowIsDegreeCheckbox.isChecked());
                     mCallbacks.onFellowChanged();
                 }
             });
@@ -103,16 +100,13 @@ public class EditFellowFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Fellow fellow = new Fellow();
-                    try {
-                        String string = fellowAgeEditText.getText().toString();
-                        fellow.setAge(Integer.parseInt(string));
-                    } catch (NumberFormatException nfe) {
-                        Toast.makeText(v.getContext(), "Incorrect age format", Toast.LENGTH_LONG).show();
+                    if (!modifyFellow(fellow, view.getContext(),
+                            fellowAgeEditText.getText().toString(),
+                            fellowNameEditText.getText().toString(),
+                            fellowSurnameEditText.getText().toString(),
+                            fellowIsDegreeCheckbox.isChecked())) {
                         return;
                     }
-                    fellow.setName(fellowNameEditText.getText().toString());
-                    fellow.setSurname(fellowSurnameEditText.getText().toString());
-                    fellow.setDegree(fellowIsDegreeCheckbox.isChecked());
                     FellasLab2.get().addFellow(fellow);
                     mCallbacks.onFellowChanged();
                 }
@@ -135,5 +129,19 @@ public class EditFellowFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mCallbacks = null;
+    }
+    
+    private Boolean modifyFellow(Fellow fellow, Context context,
+                              String age, String name, String surname, Boolean checked) {
+        try {
+            fellow.setAge(Integer.parseInt(age));
+        } catch (NumberFormatException nfe) {
+            Toast.makeText(context, "Incorrect age format", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        fellow.setName(name);
+        fellow.setSurname(surname);
+        fellow.setDegree(checked);
+        return true;
     }
 }
