@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.kostikum.itac.R;
 
 import java.util.Locale;
-import java.util.Random;
 import java.util.UUID;
 
 public class EditFellowActivity extends Activity {
