@@ -7,12 +7,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
 
 import com.kostikum.itac.R;
 
 import java.util.UUID;
 
 public class Dz9Activity extends AppCompatActivity implements FellasListFragment.Callbacks, EditFellowFragment.Callbacks{
+    
+    private Boolean isTablet;
     
     public static Intent getIntent(Context context) {
         return new Intent(context, Dz9Activity.class);
@@ -32,6 +35,8 @@ public class Dz9Activity extends AppCompatActivity implements FellasListFragment
                     .add(R.id.main_fragment_container, fragment)
                     .commit();
         }
+        
+        isTablet = findViewById(R.id.detailed_fragment_container) != null;
     
         FellasLab2.get().setListener(new FellasLab2.OnListDownloadedListener() {
             @Override
@@ -51,7 +56,7 @@ public class Dz9Activity extends AppCompatActivity implements FellasListFragment
     public void onFellowSelected(UUID uuid) {
         EditFellowFragment fragment = EditFellowFragment.newInstance(uuid);
     
-        if (findViewById(R.id.detailed_fragment_container) != null) {
+        if (isTablet) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detailed_fragment_container, fragment)
                     .commit();
@@ -65,7 +70,7 @@ public class Dz9Activity extends AppCompatActivity implements FellasListFragment
     
     @Override
     public void onFellowChanged() {
-        if (findViewById(R.id.detailed_fragment_container) != null) {
+        if (isTablet) {
             updateMainFragment();
     
             FragmentManager fm = getSupportFragmentManager();
@@ -84,7 +89,7 @@ public class Dz9Activity extends AppCompatActivity implements FellasListFragment
     }
     
     private void updateMainFragment() {
-        if (findViewById(R.id.detailed_fragment_container) != null) {
+        if (isTablet) {
             FellasListFragment listFragment = (FellasListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.main_fragment_container);
             listFragment.updateUI();
